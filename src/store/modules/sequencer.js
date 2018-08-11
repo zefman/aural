@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const bpm = 120
 const beatLength = 60 / bpm
 const noteLength = beatLength * 4
@@ -9,28 +11,30 @@ export const state = {
   currentNote: 0,
   trackCounter: 0,
   startTime: null,
-  tracks: {
-    0: {
-      voice: '_tone_0041_SoundBlasterOld_sf2',
-      notes: {
-        2: 'C-4',
-        4: 'C-4'
-      }
-    }
-  },
+  tracks: {},
   schedulerInterval: null
 }
 
 export const mutations = {
   setCurrentNote (state, note) {
-    state.currentNote = note
+    Vue.set(state, 'currentNote', note)
   },
   setStartTime (state, time) {
     state.startTime = time
   },
-  addTrack (state, track) {
-    state.tracks[state.trackCounter] = track
+  addTrack (state, { voice, defaultNote }) {
+    Vue.set(state.tracks, state.trackCounter, {
+      id: state.trackCounter,
+      voice,
+      defaultNote,
+      notes: {
+
+      }
+    })
     state.trackCounter++
+  },
+  setTrackNote (state, { track, noteNumber, note }) {
+    Vue.set(state.tracks[track.id].notes, noteNumber, note)
   },
   removeTrack (state, trackNumber) {
     delete state.tracks[trackNumber]
@@ -76,7 +80,7 @@ export const getters = {
     const notes = []
     Object.keys(state.tracks).forEach(trackId => {
       const track = state.tracks[trackId]
-      const note = track.notes[state.currentNote]
+      const note = track.notes[state.currentNote + 1]
       if (note) {
         notes.push({
           note,

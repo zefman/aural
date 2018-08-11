@@ -11,7 +11,7 @@ export default {
     this.$store.dispatch('audio/loadVoice', {
       path: 'https://surikov.github.io/webaudiofontdata/sound/0041_SoundBlasterOld_sf2.js',
       name: '_tone_0041_SoundBlasterOld_sf2'
-    }).then(() => this.$store.dispatch('scheduler/start'))
+    }).then(() => this.$store.dispatch('sequencer/start'))
   }
 }
 </script>

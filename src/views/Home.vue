@@ -1,25 +1,34 @@
 <template>
   <div class="home">
-    <input
-      v-for="(note, index) in notes"
-      :key="index"
-      v-model="notes[index]"
-      :class="{ active: index === currentNote }"
-      type="checkbox">
+    <p>Current Note</p>
+
+    <sequencer-track v-for="(track, key) in tracks" :key="'track' + key" :track="track" />
+
+    <add-sequencer-track />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import SequencerTrack from '@/components/SequencerTrack.vue'
+import AddSequencerTrack from '@/components/AddSequencerTrack.vue'
+
 export default {
   name: 'home',
+  components: {
+    AddSequencerTrack,
+    SequencerTrack
+  },
   data () {
     return {
       currentNote: 0,
       notes: [false, false, false, false, false, false, false, false]
     }
   },
-  created () {
-
+  computed: {
+    ...mapState({
+      tracks: state => state.sequencer.tracks
+    })
   }
 }
 </script>
