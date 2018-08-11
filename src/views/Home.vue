@@ -1,18 +1,31 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input
+      v-for="(note, index) in notes"
+      :key="index"
+      v-model="notes[index]"
+      :class="{ active: index === currentNote }"
+      type="checkbox">
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      currentNote: 0,
+      notes: [false, false, false, false, false, false, false, false]
+    }
+  },
+  created () {
+
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.active {
+  box-shadow: 0px 0px 10px 0px red;
+}
+</style>
