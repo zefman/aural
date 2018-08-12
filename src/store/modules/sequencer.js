@@ -10,6 +10,7 @@ export const state = {
   noteLength,
   currentNote: 0,
   trackCounter: 0,
+  numberOfNotes: 16,
   startTime: null,
   tracks: {},
   schedulerInterval: null
@@ -27,9 +28,7 @@ export const mutations = {
       id: state.trackCounter,
       voice,
       defaultNote,
-      notes: {
-
-      }
+      notes: {}
     })
     state.trackCounter++
   },
@@ -53,7 +52,7 @@ export const actions = {
     const interval = setInterval(() => {
       if (audioContext.currentTime > state.startTime + state.beatLength * state.currentNote - 0.1) {
         let nextNote = state.currentNote + 1
-        if (nextNote > 8) {
+        if (nextNote > state.numberOfNotes) {
           nextNote = 0
           commit('setStartTime', audioContext.currentTime + 0.1)
         }

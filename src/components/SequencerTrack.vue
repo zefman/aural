@@ -3,7 +3,7 @@
     <input type="text" v-model="track.defaultNote">
 
     <div class="flex">
-      <track-note v-for="n in 8" :key="n" :track="track" :noteNumber="n" :active="n === currentNote" />
+      <track-note v-for="n in numberOfNotes" :key="n" :track="track" :noteNumber="n" :active="n === currentNote" />
     </div>
 
   </div>
@@ -23,7 +23,8 @@ export default {
   },
   computed: {
     ...mapState({
-      currentNote: state => state.sequencer.currentNote
+      currentNote: state => state.sequencer.currentNote,
+      numberOfNotes: state => state.sequencer.numberOfNotes
     })
   }
 }

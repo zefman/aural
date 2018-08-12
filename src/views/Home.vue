@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <p>Current Note</p>
-
     <sequencer-track v-for="(track, key) in tracks" :key="'track' + key" :track="track" />
 
     <add-sequencer-track />
