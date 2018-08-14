@@ -195,7 +195,17 @@ module.exports = {
   */
 
   fonts: {
+    'heading': [
+      'Karla',
+      'sans-serif',
+    ],
+    'body': [
+      'Inconsolata',
+      'monospace'
+    ],
     'sans': [
+      'Karla',
+      'sans-serif',
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
@@ -222,7 +232,7 @@ module.exports = {
       'serif',
     ],
     'mono': [
-      'Menlo',
+      'Inconsolata',
       'Monaco',
       'Consolas',
       'Liberation Mono',

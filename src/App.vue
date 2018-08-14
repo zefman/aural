@@ -13,14 +13,17 @@ export default {
       name: '_tone_0041_SoundBlasterOld_sf2'
     }).then(() => {
       this.$store.dispatch('sequencer/start')
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'C-4' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'D-4' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'E-4' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'F-4' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'G-4' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'A-5' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'B-5' })
-      this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'C-5' })
+      this.$store.dispatch('sequencer/addSequencer', {defaultVoice: '_tone_0041_SoundBlasterOld_sf2'})
+        .then(sequencer => {
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'C-4', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'D-4', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'E-4', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'F-4', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'G-4', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'A-5', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'B-5', sequencer })
+          this.$store.commit('sequencer/addTrack', { voice: '_tone_0041_SoundBlasterOld_sf2', defaultNote: 'C-5', sequencer })
+        })
     })
   }
 }

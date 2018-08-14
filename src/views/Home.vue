@@ -1,31 +1,27 @@
 <template>
-  <div class="home">
-    <sequencer-track v-for="(track, key) in tracks" :key="'track' + key" :track="track" />
+  <div class="home py-4">
+    <h1 class="font-heading font-bold text-2xl mb-4">Aural - <span class="text-grey">Fun with sequencers</span></h1>
 
-    <add-sequencer-track />
+    <sequencer v-for="(sequencer, key) in sequencers" :key="key" :sequencer="sequencer" />
+
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import SequencerTrack from '@/components/SequencerTrack.vue'
-import AddSequencerTrack from '@/components/AddSequencerTrack.vue'
+import Sequencer from '@/components/Sequencer'
 
 export default {
   name: 'home',
   components: {
-    AddSequencerTrack,
-    SequencerTrack
+    Sequencer
   },
   data () {
-    return {
-      currentNote: 0,
-      notes: [false, false, false, false, false, false, false, false]
-    }
+    return {}
   },
   computed: {
     ...mapState({
-      tracks: state => state.sequencer.tracks
+      sequencers: state => state.sequencer.sequencers
     })
   }
 }

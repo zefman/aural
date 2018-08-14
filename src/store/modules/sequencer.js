@@ -10,9 +10,11 @@ export const state = {
   noteLength,
   currentNote: 0,
   trackCounter: 0,
+  sequencerCounter: 0,
   numberOfNotes: 16,
   startTime: null,
   tracks: {},
+  sequencers: {},
   schedulerInterval: null
 }
 
@@ -23,19 +25,31 @@ export const mutations = {
   setStartTime (state, time) {
     state.startTime = time
   },
-  addTrack (state, { voice, defaultNote }) {
-    Vue.set(state.tracks, state.trackCounter, {
-      id: state.trackCounter,
+  addSequencer (state, { defaultVoice }) {
+    Vue.set(state.sequencers, state.sequencerCounter, {
+      id: state.sequencerCounter,
+      defaultVoice,
+      tracks: []
+    })
+    state.sequencerCounter++
+  },
+  addTrack (state, { sequencer, voice, defaultNote }) {
+    const id = state.trackCounter
+    Vue.set(state.tracks, id, {
+      id,
       voice,
       defaultNote,
-      notes: {}
+      notes: {},
+      sequencer: sequencer.id
     })
+    state.sequencers[sequencer.id].tracks.push(id)
     state.trackCounter++
   },
   setTrackNote (state, { track, noteNumber, note }) {
     Vue.set(state.tracks[track.id].notes, noteNumber, note)
   },
   removeTrack (state, trackNumber) {
+    // TODO remove track from sequencer
     delete state.tracks[trackNumber]
   },
   setSchedulerInterval (state, interval) {
@@ -54,7 +68,7 @@ export const actions = {
         let nextNote = state.currentNote + 1
         if (nextNote > state.numberOfNotes) {
           nextNote = 0
-          commit('setStartTime', audioContext.currentTime + 0.1)
+          commit('setStartTime', audioContext.currentTime)
         }
 
         commit('setCurrentNote', nextNote)
@@ -71,6 +85,12 @@ export const actions = {
     }, 20)
 
     commit('setSchedulerInterval', interval)
+  },
+  addSequencer ({state, commit}, {defaultVoice}) {
+    const sequencerId = state.sequencerCounter
+    commit('addSequencer', {defaultVoice})
+
+    return Promise.resolve(state.sequencers[sequencerId])
   }
 }
 
