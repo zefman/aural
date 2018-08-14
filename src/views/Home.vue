@@ -2,7 +2,9 @@
   <div class="home py-4">
     <h1 class="font-heading font-bold text-2xl mb-4">Aural - <span class="text-grey">Fun with sequencers</span></h1>
 
-    <sequencer v-for="(sequencer, key) in sequencers" :key="key" :sequencer="sequencer" />
+    <div class="flex">
+      <sequencer v-for="(sequencer, key) in sequencers" :key="key" :sequencer="sequencer" />
+    </div>
 
   </div>
 </template>

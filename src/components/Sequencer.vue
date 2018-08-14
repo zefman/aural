@@ -1,5 +1,5 @@
 <template>
-  <section class="sequencer">
+  <section class="sequencer bg-grey-lighter p-4 rounded-lg shadow-3d border border-grey">
     <sequencer-track v-for="(track, key) in tracks" :key="key" :track="track" />
   </section>
 </template>

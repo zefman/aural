@@ -1,6 +1,6 @@
 <template>
   <div class="track">
-    <input type="text" v-model="track.defaultNote">
+    <!-- <input type="text" v-model="track.defaultNote"> -->
 
     <div class="flex">
       <track-note v-for="n in numberOfNotes" :key="n" :track="track" :noteNumber="n" :active="n === currentNote" />
