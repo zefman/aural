@@ -78,7 +78,7 @@ export const actions = {
         notes.forEach(note => dispatch('audio/playNote', {
           voice: note.voice,
           note: note.note,
-          duration: 1 / 8 * state.noteLength,
+          duration: 1 / 4 * state.noteLength,
           time
         }, { root: true }))
       }
@@ -103,7 +103,7 @@ export const getters = {
       if (note) {
         notes.push({
           note,
-          voice: track.voice
+          voice: track.voice.name
         })
       }
     })

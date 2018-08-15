@@ -47,6 +47,7 @@ export default {
   width: 15px;
   height: 15px;
   margin: 2px;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .active {

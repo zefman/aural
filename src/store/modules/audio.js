@@ -1,32 +1,36 @@
 import WebAudioFontPlayer from 'webaudiofont'
 import MIDIUtils from 'midiutils'
+import voices from '@/voices'
 
 const AudioContextFunc = window.AudioContext || window.webkitAudioContext
 const audioContext = new AudioContextFunc()
 const player = new WebAudioFontPlayer()
 
 const state = {
-  voices: []
+  voices,
+  loadedVoices: []
 }
 
 const mutations = {
   addVoice (state, voice) {
-    state.voices.push(voice)
+    state.loadedVoices.push(voice)
   }
 }
 
 const actions = {
-  loadVoice ({commit}, {path, name}) {
+  loadVoice ({commit}, {voice}) {
     return new Promise(resolve => {
-      player.loader.startLoad(audioContext, path, name)
+      if (state.loadedVoices.includes(voice.name)) resolve(window[voice.name])
+
+      player.loader.startLoad(audioContext, 'https://surikov.github.io/webaudiofontdata/sound/' + voice.file, voice.name)
       player.loader.waitLoad(function () {
-        commit('addVoice', name)
-        resolve(window[name])
+        commit('addVoice', voice.name)
+        resolve(window[voice.name])
       })
     })
   },
   playNote ({state}, {voice, time, duration, note}) {
-    if (state.voices.includes(voice)) {
+    if (state.loadedVoices.includes(voice)) {
       player.queueWaveTable(
         audioContext,
         audioContext.destination,
