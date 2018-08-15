@@ -47,11 +47,12 @@ export default {
   width: 15px;
   height: 15px;
   margin: 2px;
-  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .active {
   box-shadow: 0px 0px 10px 0px red;
+  // transform: scale(1.2);
 }
 
 .enabled {

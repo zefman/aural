@@ -33,6 +33,9 @@ export const mutations = {
     })
     state.sequencerCounter++
   },
+  updateSequencer (state, { sequencer }) {
+    Vue.set(state.sequencers, [sequencer.id], sequencer)
+  },
   addTrack (state, { sequencer, voice, defaultNote }) {
     const id = state.trackCounter
     Vue.set(state.tracks, id, {
@@ -44,6 +47,9 @@ export const mutations = {
     })
     state.sequencers[sequencer.id].tracks.push(id)
     state.trackCounter++
+  },
+  setTrackVoice (state, { track, voice }) {
+    state.tracks[track.id].voice = voice
   },
   setTrackNote (state, { track, noteNumber, note }) {
     Vue.set(state.tracks[track.id].notes, noteNumber, note)
@@ -91,6 +97,12 @@ export const actions = {
     commit('addSequencer', {defaultVoice})
 
     return Promise.resolve(state.sequencers[sequencerId])
+  },
+  updateSequencer ({state, commit}, {sequencer}) {
+    commit('updateSequencer', { sequencer })
+    sequencer.tracks.forEach(trackId => {
+      commit('setTrackVoice', { track: state.tracks[trackId], voice: sequencer.defaultVoice })
+    })
   }
 }
 

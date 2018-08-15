@@ -24,7 +24,7 @@ export default {
     })
   },
   computed: {
-    voices() {
+    voices () {
       return this.$store.state.audio.voices
     }
   }

@@ -30,6 +30,7 @@ const actions = {
     })
   },
   playNote ({state}, {voice, time, duration, note}) {
+    console.log(voice, time, duration, note)
     if (state.loadedVoices.includes(voice)) {
       player.queueWaveTable(
         audioContext,
