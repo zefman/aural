@@ -1,6 +1,13 @@
 <template>
   <div class="home py-4">
-    <h1 class="font-heading font-bold text-2xl mb-4">Aural - <span class="text-grey">Fun with sequencers</span></h1>
+    <header class="flex">
+      <div class="w-1/2">
+        <h1 class="font-heading font-bold text-2xl mb-4">Aural - <span class="text-grey">Fun with sequencers</span></h1>
+      </div>
+      <div class="w-1/2 flex justify-end">
+        <global-controls />
+      </div>
+    </header>
 
     <div class="flex">
       <sequencer v-for="(sequencer, key) in sequencers" :key="key" :sequencer="sequencer" />
@@ -12,11 +19,13 @@
 <script>
 import { mapState } from 'vuex'
 import Sequencer from '@/components/Sequencer'
+import GlobalControls from '@/components/GlobalControls'
 
 export default {
   name: 'home',
   components: {
-    Sequencer
+    Sequencer,
+    GlobalControls
   },
   data () {
     return {}

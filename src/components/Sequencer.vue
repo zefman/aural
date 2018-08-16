@@ -8,7 +8,7 @@
       <sequencer-track v-for="(track, key) in tracks" :key="key" :track="track" />
     </div>
 
-    <sequencer-edit :sequencer="sequencer" @update="update" v-if="edit"/>
+    <sequencer-edit :sequencer="sequencer" @update="update" @close="edit = false" v-if="edit"/>
   </section>
 </template>
 

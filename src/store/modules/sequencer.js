@@ -19,6 +19,11 @@ export const state = {
 }
 
 export const mutations = {
+  setBpm (state, bpm) {
+    state.bpm = bpm
+    state.beatLength = 60 / bpm
+    state.noteLength = beatLength * 4
+  },
   setCurrentNote (state, note) {
     Vue.set(state, 'currentNote', note)
   },
