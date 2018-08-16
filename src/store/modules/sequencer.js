@@ -1,5 +1,7 @@
 import Vue from 'vue'
+import Worker from '@/bpm.worker.js'
 
+const bpmWorker = new Worker()
 const bpm = 120
 const beatLength = 60 / bpm
 const noteLength = beatLength * 4
@@ -8,8 +10,8 @@ export const state = {
   bpm,
   beatLength,
   noteLength,
-  currentNote: 0,
-  trackCounter: 0,
+  currentNote: 1,
+  trackCounter: 1,
   sequencerCounter: 0,
   numberOfNotes: 16,
   startTime: null,
@@ -70,17 +72,19 @@ export const mutations = {
 
 export const actions = {
   start ({ state, dispatch, commit, getters, rootGetters }) {
-    console.log(rootGetters)
     const audioContext = rootGetters['audio/context']
     commit('setStartTime', audioContext.currentTime + 0.1)
 
-    const interval = setInterval(() => {
-      if (audioContext.currentTime > state.startTime + state.beatLength * state.currentNote - 0.1) {
+    bpmWorker.onmessage = () => {
+      if (audioContext.currentTime > state.startTime + (state.beatLength) * state.currentNote - 0.1) {
+        console.log('Check notes')
         let nextNote = state.currentNote + 1
         if (nextNote > state.numberOfNotes) {
           nextNote = 0
-          commit('setStartTime', audioContext.currentTime)
+          commit('setStartTime', state.startTime + state.beatLength * state.currentNote)
         }
+        console.time(nextNote)
+        console.timeEnd(state.currentNote)
 
         commit('setCurrentNote', nextNote)
 
@@ -93,9 +97,10 @@ export const actions = {
           time
         }, { root: true }))
       }
-    }, 20)
+    }
 
-    commit('setSchedulerInterval', interval)
+    bpmWorker.postMessage({command: 'start'})
+    // commit('setSchedulerInterval', interval)
   },
   addSequencer ({state, commit}, {defaultVoice}) {
     const sequencerId = state.sequencerCounter

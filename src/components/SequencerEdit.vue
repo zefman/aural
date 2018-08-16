@@ -47,7 +47,7 @@ export default {
       this.$emit('update', updatedSequencer)
     },
     close () {
-      this.$emit('close')
+      // this.$emit('close')
     }
   },
   created () {
